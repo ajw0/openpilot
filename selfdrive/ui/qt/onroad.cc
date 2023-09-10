@@ -73,7 +73,6 @@ void OnroadWindow::updateState(const UIState &s) {
 
   QColor bgColor = bg_colors[s.status];
   // PFEIFER - AOL {{
-  params = Params();
   if(s.status == STATUS_DISENGAGED && params.getBool("LateralActive")){
       bgColor = bg_colors[STATUS_LAT_ACTIVE];
   }
