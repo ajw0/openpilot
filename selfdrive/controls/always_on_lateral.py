@@ -114,9 +114,9 @@ class AlwaysOnLateral:
     if self.last_lat_allowed != lateral_allowed:
       alert = None
       if lateral_allowed:
-        alert = EngagementAlert(AudibleAlert.engage)
+        alert = EngagementAlert(AudibleAlert.none)
       else:
-        alert = EngagementAlert(AudibleAlert.disengage)
+        alert = EngagementAlert(AudibleAlert.none)
       alert_manager.add_many(sm.frame, [alert])
 
   def update_cruise_previously_engaged(self):
