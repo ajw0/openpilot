@@ -50,11 +50,10 @@ class CarState(CarStateBase):
 
     # car speed
     if self.CP.carFingerprint in RAM_CARS:
-      ret.vEgoRaw = cp.vl["ESP_8"]["Vehicle_Speed"] * CV.KPH_TO_MS
       ret.gearShifter = self.parse_gear_shifter(self.shifter_values.get(cp.vl["Transmission_Status"]["Gear_State"], None))
     else:
-      ret.vEgoRaw = (cp.vl["SPEED_1"]["SPEED_LEFT"] + cp.vl["SPEED_1"]["SPEED_RIGHT"]) / 2.
       ret.gearShifter = self.parse_gear_shifter(self.shifter_values.get(cp.vl["GEAR"]["PRNDL"], None))
+    ret.vEgoRaw = cp.vl["ESP_8"]["Vehicle_Speed"] * CV.KPH_TO_MS
     ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw)
     ret.standstill = not ret.vEgoRaw > 0.001
     ret.wheelSpeeds = self.get_wheel_speeds(
@@ -120,6 +119,7 @@ class CarState(CarStateBase):
       ("ESP_1", 50),
       ("EPS_2", 100),
       ("ESP_6", 50),
+      ("ESP_8", 50),
       ("STEERING", 100),
       ("ECM_5", 50),
       ("CRUISE_BUTTONS", 50),
@@ -133,14 +133,12 @@ class CarState(CarStateBase):
 
     if CP.carFingerprint in RAM_CARS:
       messages += [
-        ("ESP_8", 50),
         ("EPS_3", 50),
         ("Transmission_Status", 50),
       ]
     else:
       messages += [
         ("GEAR", 50),
-        ("SPEED_1", 100),
       ]
       messages += CarState.get_cruise_messages()
 
