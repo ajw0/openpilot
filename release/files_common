@@ -602,3 +602,8 @@ tinygrad_repo/tinygrad/shape/*
 tinygrad_repo/tinygrad/*.py
 
 selfdrive/controls/always_on_lateral.py
+
++selfdrive/opwebd/*.py
++selfdrive/components/*.py
++selfdrive/static/*
++selfdrive/templates/**/*
